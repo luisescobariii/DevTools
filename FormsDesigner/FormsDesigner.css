@@ -1,0 +1,115 @@
+#form-output {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+.drop-area {
+    border: thin dashed transparent;    
+}
+.drop-area.valid {
+    padding: 1rem;
+    border-color: gray;
+}
+.drop-hover.valid {
+    background-color: lightcyan;
+    border-color: darkcyan;
+}
+
+.is-fullheight {
+    height: 100%;
+}
+.tab-body {
+    height: calc(100% - 2rem);
+    overflow: auto;
+    margin: -1.25rem;
+    padding: 1.25rem;
+}
+
+.dragging {
+    outline: dashed skyblue 2px;
+}
+
+.element-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: .3rem;
+    position: relative;
+    border: solid 2px;
+    border-width: 3px 1px;
+    margin-bottom: 1rem;
+}
+.preview-mode .element-card {
+    border: none;
+    margin-bottom: 0.5rem;
+}
+.preview-mode .element-card > .header {
+    display: none;
+}
+
+.preview-mode .element-card > .element-container {
+    margin: inherit;
+}
+.element-card > .header {
+    display: block;
+    width: 100%;
+    line-height: 1;
+    padding: 0 0.5rem 0.2rem 0.5rem;
+    font-size: .6em;
+    font-weight: bold;
+    color: rgba(0,0,0,0.5);
+    cursor: grab;
+}
+.element-card > .element-container {
+    margin: 0.5rem;
+}
+@media screen and (min-width:769px) {
+    .element-card > .element-container.columns > .column:not(:last-child) {
+        margin-right: 0.5rem!important;
+    }
+}
+@media screen and (max-width:768px) {
+    .element-card > .element-container.columns > .column:not(:last-child) {
+        margin-bottom: 0.5rem!important;
+    }
+}
+.element-card.section {
+    border-color: #D2DAFF;
+    padding: 0;
+}
+.element-card.section > .header {
+    background: #D2DAFF;
+}
+
+.element-card.row {    
+    border-color: #D1F2FF;
+    padding: 0;
+}
+.element-card.row > .header {
+    background: #D1F2FF;
+}
+
+.element-card.control {
+    border-color: #D8FDF2;
+    padding: 0;
+}
+#form-output .element-card.control {
+    margin: 0;
+}
+.element-card.control > .header {
+    background: #D8FDF2;
+}
+#element-bar {
+    padding: 0.5rem 1rem;
+    line-height: 1;
+}
+#body-elements .level-item > * {
+    width: 80px;
+}
+#body-elements .element-card {
+    margin: 0;
+    background-color: white;
+}
+#body-elements .card-content {
+    padding: 0.5rem;
+}

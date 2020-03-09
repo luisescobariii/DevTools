@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TP Client Tools</title>
+    <link rel="stylesheet" href="../css/bulma.css">
+    <link rel="stylesheet" href="../css/overrides.css">
+    
+    <script defer src="script.js"></script>
+</head>
+<body>
+    
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="../">
+                <img src="../res/img/Dev Tools.png" >
+            </a>
+            
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="../SqlServerTools">SQL Server Tools</a>                
+                <a class="navbar-item" href="../FormsDesigner">Forms Designer</a>
+                <a class="navbar-item is-active">TP Client Tools</a>                
+            </div>            
+        </div>
+    </nav>
+    <br>
+    <section class="section">
+        <div class="level is-mobile">
+            <div class="level-left">
+                <div class="level-item"><h3 class="title">Trees</h3></div>
+            </div>
+            <div class="level-right">
+                <div class="level-item"><button class="button" onclick="AddDynamicRow('table-trees')">ADD</button></div>
+                <div class="level-item"><button class="button" onclick="RemoveDynamicRow('table-trees')">REMOVE</button></div>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table id="table-trees" class="table is-bordered is-fullwidth table-dynamic">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Description</th>
+                        <th>Alphabetical Order?</th>
+                        <th>Requires Last Level?</th>
+                        <th>Autoincrement?</th>
+                        <th>Classifier?</th>
+                        <th>Observations</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-autoincrement="true"><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td data-keep="true"><label class="checkbox"><input type="checkbox"></label></td>
+                        <td data-keep="true"><label class="checkbox"><input type="checkbox"></label></td>
+                        <td data-keep="true"><label class="checkbox"><input type="checkbox"></label></td>
+                        <td data-keep="true"><label class="checkbox"><input type="checkbox"></label></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <br>
+        
+        <div class="level is-mobile">
+            <div class="level-left">
+                <div class="level-item"><h3 class="title">Branches</h3></div>
+            </div>
+            <div class="level-right">
+                <div class="level-item"><button class="button" onclick="AddDynamicRow('table-branches')">ADD</button></div>
+                <div class="level-item"><button class="button" onclick="RemoveDynamicRow('table-branches')">REMOVE</button></div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="table-branches" class="table is-bordered is-fullwidth table-dynamic">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Description</th>
+                        <th>Tree Id</th>
+                        <th>Parent Id</th>
+                        <th>Value</th>
+                        <th>Order</th>
+                        <th>Active?</th>
+                        <th>Visible?</th>
+                        <th>Parameters</th>
+                        <th>Help Description</th>
+                        <th>Results</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-autoincrement="true"><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td data-keep="true"><input type="text"></td>
+                        <td data-keep="true"><input type="text"></td>
+                        <td><input type="text"></td>
+                        <td data-autoincrement="true"><input type="number" step="1"></td>
+                        <td data-keep="true"><label class="checkbox"><input type="checkbox"></label></td>
+                        <td data-keep="true"><label class="checkbox"><input type="checkbox"></label></td>
+                        <td data-keep="true"><label class="checkbox"><input type="checkbox"></label></td>
+                        <td><input type="text"></td>
+                        <td><input type="text"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </section>
+    
+    
+    
+</body>
+</html>

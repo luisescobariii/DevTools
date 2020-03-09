@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+    border:none;
+    padding: 0;
+    margin:0;
+}
+html, body {
+    overflow: auto;
+}
+html{
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: whitesmoke;
+    height: 100%;
+}
+nav {
+    box-shadow: 1px 0 6px rgba(0,0,0,0.1);
+}
+nav a.is-active {
+    border-bottom: solid 1px #00d2b4;
+    font-weight: bold;
+}
+
+.table-dynamic tbody td {
+    text-align: center;
+    padding: 0;
+    vertical-align: middle;
+}
+.table-dynamic input[type="text"],
+.table-dynamic input[type="number"],
+.table-dynamic select {
+    padding: 0.5em 0.75em;
+    border-radius: 0;
+    width: 100%;
+}
+.table-dynamic input[type="number"] {
+    text-align: right;
+}
+.table-dynamic label.checkbox {
+    width: 100%;
+}

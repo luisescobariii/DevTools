@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Forms Designer</title>
+    <link rel="stylesheet" href="../css/bulma.css">
+    <link rel="stylesheet" href="../css/bulma-extensions.css">
+    <link rel="stylesheet" href="../css/overrides.css">
+    <link rel="stylesheet" href="FormsDesigner.css">
+    
+    <link rel="stylesheet" href="../res/icons/css/all.min.css">
+    
+    <script defer src="../js/Sortable.js"></script>
+    <script defer src="../js/bulma-extensions.js"></script>
+    <script defer src="controls/Control.js"></script>
+    <script defer src="controls/Containers.js"></script>
+    <script defer src="controls/BasicInputs.js"></script>
+    <script defer src="controls/SelectInput.js"></script>
+    <script defer src="controls/CheckboxInput.js"></script>
+    <script defer src="FormBuilder.js"></script>
+    <script defer src="FormsDesigner.js"></script>
+</head>
+<body class="has-navbar-fixed-top is-clipped">
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="../">
+                <img src="../res/img/Dev Tools.png" >
+            </a>
+            
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="../SqlServerTools">SQL Server Tools</a>                
+                <a class="navbar-item is-active">Forms Designer</a>
+                <a class="navbar-item" href="../TPClientTools/">TP Client Tools</a>                
+            </div>
+        </div>
+    </nav>
+    
+    <div id="element-bar" class="level is-mobile has-background-white-bis is-marginless">    
+        <div class="level-left"></div>
+        <div id="body-elements" class="level-right">
+            
+            <div id="page-element" class="level-item">
+                <div class="card">
+                    <div class="card-content">
+                        <label>Page</label>
+                        <div class="element-container"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="section-element" class="element level-item">
+                <div class="element-card section">
+                    <span class="header">Section</span>
+                    <div class="element-container"></div>
+                </div>
+            </div>
+            
+            <div id="row-element" class="element level-item">
+                <div class="element-card row">
+                    <span class="header">Row</span>
+                    <div class="element-container columns"></div>
+                </div>
+            </div>
+            
+            <div id="control-element" class="element level-item">
+                <div class="element-card control column">
+                    <span class="header">Control</span>
+                    <div class="element-container"></div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="columns is-fullheight is-marginless">
+        <div class="column is-one-quarter-widescreen is-one-third-desktop is-two-fifths-tablet is-paddingless">
+            <div class="is-fullheight has-background-grey-lighter">
+                <div id="body-properties"></div>
+            </div>
+        </div>
+        <div class="column">
+            <div id="form-output">
+                
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
