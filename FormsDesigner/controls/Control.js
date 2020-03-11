@@ -5,7 +5,7 @@ const ControlSize = { Small: 0, Normal: 1, Medium: 2, Large: 3 };
 class Control {
 
     /**
-     * Creates a new Control with the given configuration
+     * Creates a new Control with the given configuration     
      * @param {object} config The configuration for the control.
      * @param {string} config.Id The identifier for the control.
      * @param {ControlSize} [config.Size=Normal] The ControlSize of the control.
@@ -33,7 +33,7 @@ class Control {
         } else {
             this.Size = ControlSize.Normal;
         }
-        this.type = 'text';
+        this.TypeName = 'text';
         this.Id = Id || '';
         this.Icon = Icon || '';
         this.Label = Label || '';
@@ -68,7 +68,7 @@ class Control {
         `<div class="field">
             ${labelElem}
             <div class="control ${this.RenderLoading()}" ${this.RenderRequired()} ${this.RenderReadonly()} ${this.RenderDisabled()}>
-                <input ${idElem} class="input ${this.RenderSize()}" type="${this.Type}" ${placeholderElem} ${valueElem}>
+                <input ${idElem} class="input ${this.RenderSize()}" type="${this.TypeName}" ${placeholderElem} ${valueElem}>
             </div>
         </div>`;
         return html;

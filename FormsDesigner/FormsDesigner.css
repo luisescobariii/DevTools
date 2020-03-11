@@ -19,29 +19,25 @@
 .is-fullheight {
     height: 100%;
 }
-.tab-body {
-    height: calc(100% - 2rem);
-    overflow: auto;
-    margin: -1.25rem;
-    padding: 1.25rem;
-}
-
-.dragging {
-    outline: dashed skyblue 2px;
-}
 
 .element-card {
     display: flex;
+    border-radius: 0.5rem;
     flex-direction: column;
-    border-radius: .3rem;
     position: relative;
-    border: solid 2px;
-    border-width: 3px 1px;
     margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: solid transparent;
+}
+.element-card.selected {
+    border: solid 2px;
 }
 .preview-mode .element-card {
     border: none;
     margin-bottom: 0.5rem;
+}
+.preview-mode .element-card.selected {
+    outline: none;
 }
 .preview-mode .element-card > .header {
     display: none;
@@ -54,14 +50,15 @@
     display: block;
     width: 100%;
     line-height: 1;
-    padding: 0 0.5rem 0.2rem 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.2rem 0.5rem;
     font-size: .6em;
     font-weight: bold;
     color: rgba(0,0,0,0.5);
     cursor: grab;
 }
 .element-card > .element-container {
-    margin: 0.5rem;
+    margin: 0.5rem 0;
 }
 @media screen and (min-width:769px) {
     .element-card > .element-container.columns > .column:not(:last-child) {

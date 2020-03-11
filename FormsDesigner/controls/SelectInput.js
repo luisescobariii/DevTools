@@ -16,6 +16,7 @@ class SelectInput extends Control {
      * @param {string[]|object[]} config.Options - List of options available to select.
      * @param {string} config.Options[].Value - Value of the option.
      * @param {string} config.Options[].Text - Text of the option.
+     * @param {boolean} config.Options[].Selected - True for the selected option.
      */
     constructor(config) {
         super(config);
@@ -32,7 +33,10 @@ class SelectInput extends Control {
             if (typeof(this.Options[0]) == 'String') {
                 optionsElem = this.Options.map(opt => `<option>${opt}</option>`).join('');
             } else {
-                optionsElem = this.Options.map(opt => `<option value="${opt.Value}">${opt.Text}</option>`).join('');
+                for (let option of this.Options) {
+                    let selectedElem = option.Selected ? 'selected' : '';
+                    optionsElem +=`<option value="${option.Value}" ${selectedElem}>${option.Text}</option>`;
+                }
             }
         }        
         let idElem = this.Id != '' ? `id="${this.Id}"` : '';

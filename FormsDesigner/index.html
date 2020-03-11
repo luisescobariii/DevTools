@@ -47,10 +47,13 @@
     
     <div id="element-bar" class="level is-mobile has-background-white-bis is-marginless">    
         <div class="level-left"></div>
+        <div class="level-right">
+            <button id="btn-preview" type="button" class="button">Preview</button>
+        </div>
         <div id="body-elements" class="level-right">
             
             <div id="page-element" class="level-item">
-                <div class="card">
+                <div class="card" data-type="page">
                     <div class="card-content">
                         <label>Page</label>
                         <div class="element-container"></div>
@@ -59,21 +62,21 @@
             </div>
             
             <div id="section-element" class="element level-item">
-                <div class="element-card section">
+                <div class="element-card section" data-type="section">
                     <span class="header">Section</span>
                     <div class="element-container"></div>
                 </div>
             </div>
             
             <div id="row-element" class="element level-item">
-                <div class="element-card row">
+                <div class="element-card row" data-type="row">
                     <span class="header">Row</span>
                     <div class="element-container columns"></div>
                 </div>
             </div>
             
             <div id="control-element" class="element level-item">
-                <div class="element-card control column">
+                <div class="element-card control column" data-type="control">
                     <span class="header">Control</span>
                     <div class="element-container"></div>
                 </div>
@@ -83,7 +86,7 @@
     </div>
     
     <div class="columns is-fullheight is-marginless">
-        <div class="column is-one-quarter-widescreen is-one-third-desktop is-two-fifths-tablet is-paddingless">
+        <div id="rez" class="column is-one-quarter-widescreen is-one-third-desktop is-two-fifths-tablet is-paddingless">
             <div class="is-fullheight has-background-grey-lighter">
                 <div id="body-properties"></div>
             </div>

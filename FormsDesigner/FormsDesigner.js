@@ -1,21 +1,14 @@
-let DragData, UserForm, UserFormControls;
+'use strict';
+let  UserFormElements, SelectedElemId;
 
-const config = {
+const appConfig = {
     animation: 150
 };
 
 (() => {
-    UserForm = {
-        pages: []
-    };
 
-    USerFormControls = [];
-    
-    // document.querySelectorAll('.card[draggable="true"]').forEach(elem => {
-    //     elem.addEventListener('dragstart', DragElement);
-    //     elem.addEventListener('dragend', HideTargets);
-    // });
-    
+    UserFormElements = [];
+        
     Sortable.create(document.getElementById('page-element'), {
         group: {
             name: 'page',
@@ -23,7 +16,7 @@ const config = {
             put: false
         },
         sort: false,
-        animation: config.animation,
+        animation: appConfig.animation,
         ghostClass: 'dragging'
     });
 
@@ -34,7 +27,7 @@ const config = {
             put: false
         },
         sort: false,
-        animation: config.animation,
+        animation: appConfig.animation,
         ghostClass: 'dragging'
     });
 
@@ -45,7 +38,7 @@ const config = {
             put: false
         },
         sort: false,
-        animation: config.animation,
+        animation: appConfig.animation,
         ghostClass: 'dragging'
     });
 
@@ -56,7 +49,7 @@ const config = {
             put: false
         },
         sort: false,
-        animation: config.animation,
+        animation: appConfig.animation,
         ghostClass: 'dragging'
     });
 
@@ -66,14 +59,28 @@ const config = {
             put: ['page']
         },
         sort: true,
-        animation: config.animation,
+        animation: appConfig.animation,
         onAdd: AddFormPage,
         ghostClass: 'dragging'
+    });
+
+    document.querySelector('#btn-preview').addEventListener('click', () => {
+        document.querySelector('#form-output').classList.toggle('preview-mode');
+    });
+
+    document.querySelector('#body-properties').addEventListener('change', e => {
+        if (e.target) {
+            UpdateControlElement();
+        }
     });
 
 })();
 
 async function AddFormPage(e) {
+    let elemId = UUID();
+    e.item.dataset.elemId = elemId;
+    UserFormElements.push(new PageContainer({ElemId: elemId}));
+
     let elem = e.item.querySelector('.element-container');
     Sortable.create(elem, {
         group: {
@@ -81,13 +88,17 @@ async function AddFormPage(e) {
             put: ['section']
         },
         sort: true,
-        animation: config.animation,
+        animation: appConfig.animation,
         onAdd: AddFormSection,
         ghostClass: 'dragging'
     });
 }
 
 async function AddFormSection(e) {   
+    let elemId = UUID();
+    e.item.dataset.elemId = elemId;
+    UserFormElements.push(new SectionContainer({ElemId: elemId}));
+    
     let elem = e.item.querySelector('.element-container');
     Sortable.create(elem, {
         group: {
@@ -95,13 +106,17 @@ async function AddFormSection(e) {
             put: ['row']
         },
         sort: true,
-        animation: config.animation,
+        animation: appConfig.animation,
         onAdd: AddFormRow,
         ghostClass: 'dragging'
     });
 }
 
-async function AddFormRow(e) {   
+async function AddFormRow(e) {
+    let elemId = UUID();
+    e.item.dataset.elemId = elemId;
+    UserFormElements.push(new RowContainer({ElemId: elemId}));
+
     let elem = e.item.querySelector('.element-container');
     Sortable.create(elem, {
         group: {
@@ -109,124 +124,81 @@ async function AddFormRow(e) {
             put: ['control']
         },
         sort: true,
-        animation: config.animation,
+        animation: appConfig.animation,
         onAdd: AddFormControl,
-        ghostClass: 'dragging'
+        onChoose: SelectElement
     });
 }
 
-async function AddFormControl(e) {  
-    console.log(e.item);
+async function AddFormControl(e) {
+    let elemId = UUID();
+    e.item.dataset.elemId = elemId;    
+    UserFormElements.push(new ControlContainer({ ElemId: elemId }));
+
+    await SelectElement(e);
+    UpdateControlElement();
 }
 
-async function UpdateFormPage(e) {
-    UserForm.pages.find(p => p.index == e.oldIndex);
-    
+async function ReadControlConfig() {
+    return {
+        Type: Number.parseInt(ReadFormValue('fb-inType')),
+        Id: ReadFormValue('fb-inId'),
+        Size: Number.parseInt(ReadFormValue('fb-inSize')),
+        Label: ReadFormValue('fb-inLabel'),
+        Value: ReadFormValue('fb-inValue'),
+        Placeholder: ReadFormValue('fb-inPlaceholder'),
+        Required: ReadFormValue('fb-inRequired'),
+        Readonly: ReadFormValue('fb-inReadonly'),
+        Disabled: ReadFormValue('fb-inDisabled'),
+        Loading: ReadFormValue('fb-inLoading')
+    };
 }
 
-async function RenderUserForm() {
-    console.clear();
-    console.log(UserForm);
-    
-    let html = '';
-    for (let page of UserForm.pages) {
-        html += await RenderFormPage(page);
-    }
-    
-    document.getElementById('form-output').innerHTML = html;
+function ReadFormValue(id) {
+    let input = document.getElementById(id);
+    if (!input) { return null; }
+    return input.type == 'checkbox' || input.type == 'radio' ? input.checked : input.value;
 }
 
-async function RenderFormSection(page) {
-    let html = '';
-    for (let section of page.sections) {
-        html += await RenderFormSection(section);
-    }
-    return html;
+async function UpdateControlElement() {
+    let item = document.querySelector(`.element-card[data-elem-id="${SelectedElemId}"]`);
+    let config = await ReadControlConfig();
+    UserFormElements.find(e => e.ElemId == SelectedElemId).Control = config;
+    item.querySelector('.element-container').innerHTML = await GetControl(config);    
 }
 
-async function RenderFormSection(section) {
-    let html = '';
-    for (let row of section.rows) {
-        html += await RenderFormRow(row);
-    }
-    return html;
-}
+async function SelectElement(e) {
+    document.querySelectorAll('.element-card.selected')
+        .forEach(elem => elem.classList.remove('selected'));
+    e.item.classList.add('selected');
 
-async function RenderFormRow(row) {
-    let html = '';
-    for (let control of row.controls) {
-        html += await GetControl(control);
-    }
-    return html;
-}
-
-function HideTargets(e) {
-    document.querySelectorAll('.drop-area').forEach(elem => elem.classList.remove('valid'));
-}
-
-function DragElement(e) {
-    DragData = e.target.dataset.selection;
-    document.querySelectorAll('.drop-area').forEach(elem => {
-        if (!elem.dataset.valids || elem.dataset.valids.split(',').includes(DragData)) {
-            elem.classList.add('valid');
-        } else {
-            elem.classList.remove('valid');
-        }
-    });
-}
-
-function HighlightTarget(e, entering) {
-    if (entering) {
-        e.target.classList.add('drop-hover');
-    } else {
-        e.target.classList.remove('drop-hover');
+    SelectedElemId = e.item.dataset.elemId;
+    let elem = UserFormElements.find(el => el.ElemId == SelectedElemId);
+    if (elem.Type == ContainerType.Control) {
+        document.querySelector('#body-properties').innerHTML =
+        await FormBuilder.RenderControlForm(elem.Control);
     }
 }
 
-function AllowDrag(e) {
-    if (e.target.dataset.validControls && !e.target.dataset.valids.split(',').includes(DragData)) { return; }
-    e.preventDefault();
-}
-
-async function DropElement(e) {
-    e.preventDefault();
-    e.target.classList.remove('highlight');
+async function BindBodyProperties(elemId) {
     
-    let controlType = ControlType[DragData];   
-    
-    UserForm.rows.push({
-        type: controlType,
-        config: {        
-            Id: '', Label: DragData, Value: '', Placeholder: '', Size: 1,
-            Required: false, Readonly: false, Disabled: false, Loading: false, Options: []
-        }
-    });
-    
-    let controlForm = await FormBuilder.RenderControlForm(controlType);    
-    document.getElementById('body-properties').innerHTML = controlForm;
-    
-    DragData = null;
-    document.querySelectorAll('.drag-area').forEach(elem => elem.classList.remove('valid'));
-    RenderUserForm();
 }
 
 async function GetControl(control) {
     
     let elem;
-    
-    switch (control.type) {
+    switch (control.Type) {
         case ControlType.Card: elem = new CardContainer(); break;
         case ControlType.Section: elem = new SectionContainer(); break;
-        case ControlType.Checkbox: elem = new CheckboxInput(config); break;
-        case ControlType.Date: elem = new DateInput(control.config); break;
-        case ControlType.Datetime: elem = new DatetimeInput(control.config); break;
-        case ControlType.Email: elem = new EmailInput(control.config); break;
-        case ControlType.Number: elem = new NumberInput(control.config); break;
-        case ControlType.Password: elem = new PasswordInput(control.config); break;
-        case ControlType.Text: elem = new TextInput(control.config); break;
-        case ControlType.Select: elem = new SelectInput(control.config); break;
+        case ControlType.Checkbox: elem = new CheckboxInput(control); break;
+        case ControlType.Date: elem = new DateInput(control); break;
+        case ControlType.Datetime: elem = new DatetimeInput(control); break;
+        case ControlType.Email: elem = new EmailInput(control); break;
+        case ControlType.Number: elem = new NumberInput(control); break;
+        case ControlType.Password: elem = new PasswordInput(control); break;
+        case ControlType.Text: elem = new TextInput(control); break;
+        case ControlType.Select: elem = new SelectInput(control); break;
     }
-    
     return elem.Render();
 }
 

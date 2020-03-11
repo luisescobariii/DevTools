@@ -1,29 +1,31 @@
-class TextInput extends Control {}
+class TextInput extends Control {
+    constructor (config) { super(config); this.Type = 'text'; }
+}
 
 class TelInput extends Control {
-    constructor (config) { super(config); this.Type = 'tel'; }
+    constructor (config) { super(config); this.TypeName = 'tel'; }
 }
 
 class DateInput extends Control {
-    constructor (config) { super(config); this.Type = 'date'; }
+    constructor (config) { super(config); this.TypeName = 'date'; }
 }
 
 class DatetimeInput extends Control {
-    constructor (config) { super(config); this.Type = 'datetime'; }
+    constructor (config) { super(config); this.TypeName = 'datetime-local'; }
 }
 
 class EmailInput extends Control {
-    constructor (config) { super(config); this.Type = 'email'; }
+    constructor (config) { super(config); this.TypeName = 'email'; }
 }
 
 class NumberInput extends Control {
-    constructor (config) { super(config); this.Type = 'number'; }
+    constructor (config) { super(config); this.TypeName = 'number'; }
 }
 
 class PasswordInput extends Control {
-    constructor (config) { super(config); this.Type = 'password'; }
+    constructor (config) { super(config); this.TypeName = 'password'; }
 }
 
 class TimeInput extends Control {
-    constructor (config) { super(config); this.Type = 'time'; }
+    constructor (config) { super(config); this.TypeName = 'time'; }
 }
